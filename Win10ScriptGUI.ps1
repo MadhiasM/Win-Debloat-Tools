@@ -163,7 +163,7 @@ function Show-GUI() {
     $CbDarkTheme = New-CheckBox -Text "Enable Dark Theme" -Width $PanelElementWidth -Height $CheckBoxHeight -LocationX $PanelElementX -ElementBefore $ClCustomizeFeatures -MarginTop $DistanceBetweenElements
     $CbActivityHistory = New-CheckBox -Text "Enable Activity History" -Width $PanelElementWidth -Height $CheckBoxHeight -LocationX $PanelElementX -ElementBefore $CbDarkTheme
     $CbBackgroundsApps = New-CheckBox -Text "Enable Background Apps" -Width $PanelElementWidth -Height $CheckBoxHeight -LocationX $PanelElementX -ElementBefore $CbActivityHistory
-    $CbBingSearch = New-CheckBox -Text "Enable Start Menu Bing Search" -Width $PanelElementWidth -Height $CheckBoxHeight -LocationX $PanelElementX -ElementBefore $CbBackgroundsApps
+    $CbBingSearch = New-CheckBox -Text "Enable Bing Search in Start Menu" -Width $PanelElementWidth -Height $CheckBoxHeight -LocationX $PanelElementX -ElementBefore $CbBackgroundsApps
     $CbClipboardHistory = New-CheckBox -Text "Enable Clipboard History" -Width $PanelElementWidth -Height $CheckBoxHeight -LocationX $PanelElementX -ElementBefore $CbBingSearch
     $CbCortana = New-CheckBox -Text "Enable Cortana" -Width $PanelElementWidth -Height $CheckBoxHeight -LocationX $PanelElementX -ElementBefore $CbClipboardHistory
     $CbOldVolumeControl = New-CheckBox -Text "Enable Old Volume Control" -Width $PanelElementWidth -Height $CheckBoxHeight -LocationX $PanelElementX -ElementBefore $CbCortana
@@ -580,10 +580,10 @@ function Show-GUI() {
     $CbBingSearch.Add_Click( {
             If ($CbBingSearch.CheckState -eq "Checked") {
                 Enable-ClipboardHistory
-                $CbBingSearch.Text = "[ON]  Start Menu Bing Search *"
+                $CbBingSearch.Text = "[ON]  Bing Search in Start Menu *"
             } Else {
                 Disable-ClipboardHistory
-                $CbBingSearch.Text = "[OFF] Start Menu Bing Search"
+                $CbBingSearch.Text = "[OFF] Bing Search in Start Menu"
             }
         })
 
