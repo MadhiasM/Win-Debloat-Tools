@@ -37,14 +37,30 @@ function Enable-BackgroundAppsToogle() {
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" -Name "BackgroundAppGlobalToggle" -Type DWord -Value 1
 }
 
+function Disable-BingSearch() {
+    Write-Status -Types "-", "Misc" -Status "Disabling Bing Search in Start Menu..."
+    If (!(Test-Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
+        New-Item -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Force | Out-Null
+    }
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "DisableSearchBoxSuggestions" -Type DWord -Value 1
+}
+
+function Enable-BingSearch() {
+    Write-Status -Types "-", "Misc" -Status "Enabling Bing Search in Start Menu..."
+    If (!(Test-Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
+        New-Item -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Force | Out-Null
+    }
+    Remove-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "DisableSearchBoxSuggestions"
+}
+
 function Disable-ClipboardHistory() {
-    Write-Status -Types "-", "Privacy" -Status "Disabling Clipboard History..."
+    Write-Status -Types "-", "Privacy" -Status "Disabling Clipboard History (requires reboot!)..."
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -Type DWord -Value 0
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 0
 }
 
 function Enable-ClipboardHistory() {
-    Write-Status -Types "*", "Privacy" -Status "Enabling Clipboard History..."
+    Write-Status -Types "*", "Privacy" -Status "Enabling Clipboard History (requires reboot!)..."
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -Type DWord -Value 1
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1
 }
@@ -167,14 +183,14 @@ function Enable-InternetExplorer() {
 # Code from: https://answers.microsoft.com/en-us/windows/forum/all/set-the-mouse-scroll-direction-to-reverse-natural/ede4ccc4-3846-4184-a86d-a028515040c0
 function Disable-MouseNaturalScroll() {
     Get-PnpDevice -Class Mouse -PresentOnly -Status OK | ForEach-Object {
-        Write-Status -Types "*" -Status "Disabling mouse natural mode on $($_.Name): $($_.DeviceID) (needs restart!)"
+        Write-Status -Types "*" -Status "Disabling mouse natural mode on $($_.Name): $($_.DeviceID) (requires reboot!)"
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$($_.DeviceID)\Device Parameters" -Name "FlipFlopWheel" -Type DWord -Value 0
     }
 }
 
 function Enable-MouseNaturalScroll() {
     Get-PnpDevice -Class Mouse -PresentOnly -Status OK | ForEach-Object {
-        Write-Status -Types "+" -Status "Enabling mouse natural mode on $($_.Name): $($_.DeviceID) (needs restart!)"
+        Write-Status -Types "+" -Status "Enabling mouse natural mode on $($_.Name): $($_.DeviceID) (requires reboot!)"
         Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\$($_.DeviceID)\Device Parameters" -Name "FlipFlopWheel" -Type DWord -Value 1
     }
 }

@@ -173,6 +173,7 @@ _This section contains tools to solve some Windows problems and get info about h
 - `Enable/Disable Dark Theme`: Apply _Dark Theme_ or _Light Theme_ on Windows;
 - `Enable/Disable Activity History`: Manages the **Activity History**;
 - `Enable/Disable Background Apps`: Manages _ALL_ the **Background Apps**;
+- `Enable/Disable Start Menu Bing Search`: Manages the **Start Menu Bing Search**;
 - `Enable/Disable Clipboard History`: Manages the **Clipboard History**;
 - `Enable/Disable Cortana`: Manages the **Cortana**;
 - `Enable/Disable Old Volume Control`: Manages the **Old Volume Control (Win 7/8.1)**;
